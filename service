@@ -1,0 +1,52 @@
+package com.dto_project.dto_project.service;
+
+import com.dto_project.dto_project.entity.User;
+import com.dto_project.dto_project.exceptions.UserNotFoundException;
+import com.dto_project.dto_project.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserService {
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public User getUserById(Integer id) throws UserNotFoundException {
+        return userRepository.findById(id).
+                orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public String deleteUserById(User user, Integer id) throws UserNotFoundException {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        if (existingUser.getDeletion().equals(true)) {
+            return "User has already been deleted!";
+        }
+        existingUser.setDeletion(true);
+        return "User with id: " + id + " has been deleted!";
+    }
+
+    public String updateUserById(User user, Integer id) throws UserNotFoundException {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setSecondName(user.getSecondName());
+        existingUser.setAge(user.getAge());
+        existingUser.setEmail(user.getEmail());
+        return "User with id: " + id + " has been updated!";
+    }
+}
