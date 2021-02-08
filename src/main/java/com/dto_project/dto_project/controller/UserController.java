@@ -19,8 +19,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/users")
-    public User saveUser(@RequestBody UserDto userDto) {
-        return userService.saveUser(userDto);
+    public User saveUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
     @GetMapping(value = "/users")
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/{id}")
-    public UserDto getUserById(@PathVariable(value = "id") Integer id) {
+    public User getUserById(@PathVariable(value = "id") Integer id) {
         return userService.getUserById(id);
     }
 

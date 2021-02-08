@@ -20,15 +20,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User saveUser(UserDto userDto) {
-        User user = UserMapper.INSTANCE.toEntity(userDto); // ???
+    public User saveUser(User user) {
+        //User user = UserMapper.INSTANCE.toEntity(userDto); // ???
         return userRepository.save(user);
     }
 
-    public UserDto getUserById(Integer id) {
-        User user = userRepository.findById(id).
-                orElseThrow(() -> new UserNotFoundException("User not found with id: " + id)); // ???
-        return UserMapper.INSTANCE.toDto(user);
+    public User getUserById(Integer id) {
+        return userRepository.findById(id).
+                orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        //return UserMapper.INSTANCE.toDto(user); // ???
     }
 
     public List<User> getAllUsers() {
