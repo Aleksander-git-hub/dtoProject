@@ -15,23 +15,16 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "user_id")
-    @GenericGenerator(name = "generator", strategy = "increment")
-    @GeneratedValue(generator = "generator")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "second_name")
     private String secondName;
 
-    @Column(name = "user_age")
     private Integer age;
 
-    @Column(name = "user_email")
     private String email;
 
-    @Column(name = "deletion")
-    private Boolean deletion;
+    private Boolean deleted = false;
 }

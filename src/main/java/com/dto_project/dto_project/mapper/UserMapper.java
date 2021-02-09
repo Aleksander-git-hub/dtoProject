@@ -5,24 +5,13 @@ import com.dto_project.dto_project.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "secondName", target = "secondName")
-    @Mapping(source = "email", target = "email")
-    @Mapping(source = "age", target = "age")
-    @Mapping(source = "deletion", target = "deletion")
+    @Mapping(target = "id", ignore = true)
     User toEntity(UserDto userDto);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "secondName", target = "secondName")
-    @Mapping(source = "email", target = "email")
-    @Mapping(source = "age", target = "age")
-    @Mapping(source = "deletion", target = "deletion")
     UserDto toDto(User user);
 }
